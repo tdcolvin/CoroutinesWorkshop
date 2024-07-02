@@ -13,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -74,6 +75,14 @@ fun ShowPINScreen(modifier: Modifier = Modifier) {
 @Composable
 fun WarningLight() {
     var flashState by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        while(true) {
+            Log.v("warningflash", Thread.currentThread().name)
+            delay(500)
+            flashState = !flashState
+        }
+    }
 
     Column {
         Text(
