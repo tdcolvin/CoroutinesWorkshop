@@ -13,7 +13,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,10 +44,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ShowPINScreen(modifier: Modifier = Modifier) {
     var showPin by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = modifier) {
         Button(
             onClick = {
+                coroutineScope.launch {
+                    Log.v("pin", Thread.currentThread().name)
+                    showPin = true
+                    delay(5000)
+                    showPin = false
+                }
             }
         ) {
             Text("Show PIN")
